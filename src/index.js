@@ -3,12 +3,30 @@ import ReactDOM from 'react-dom';
 import App from './app/App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import { StoreProvider } from 'easy-peasy'
+import store from './store';
+
+
+
+if (process.env.NODE_ENV !== 'development') {
+  ReactDOM.render(
+    <React.StrictMode>
+      <StoreProvider store={store}>
+        <App />
+      </StoreProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+} else {
+  ReactDOM.render(
+    <StoreProvider store={store}>
+      <App />
+    </StoreProvider>,
+    document.getElementById('root')
+  );
+}
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
